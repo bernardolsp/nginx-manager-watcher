@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-manager-watcher
+  labels:
+    app: nginx-manager-watcher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-manager-watcher
+  template:
+    metadata:
+      labels:
+        app: nginx-manager-watcher
+    spec:
+      serviceAccountName: nginx-manager-watcher
+      containers:
+      - name: nginx-manager-watcher
+        image: devlopesbernardo/k8s-nginx-manager:0.2
+        env:
+        - name: NGINX_MANAGER_URL
+          value: <NGINX_MANAGER_URL>
+        - name: CLOUDFLARE_API_TOKEN
+          value: <CLOUDFLARE_API_TOKEN>
+        - name: CLOUDFLARE_ZONE
+          value: <CLOUDFLARE_ZONE>
+        - name: KUBERNETES_HOST_IP
+          value: <OPTIONAL | KUBERNETES_HOST_IP>
+        - name: NGINX_MANAGER_URL
+          value: <NGINX_MANAGER_URL>
+        - name: NGINX_MANAGER_PASS
+          value: <NGINX_MANAGER_PASS>
+        - name: CF_ROOT_DOMAIN_NAME
+          value: <CF_ROOT_DOMAIN_NAME>
